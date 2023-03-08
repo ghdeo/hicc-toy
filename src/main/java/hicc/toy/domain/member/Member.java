@@ -19,4 +19,11 @@ public class Member {
     private Long id;
     private MemberRole memberRole;
 
+    public Member() {
+    }
+
+    public Member(Long id, MemberRole memberRole) {
+        this.id = id;
+        this.memberRole = memberRole;
+    }
 }
