@@ -1,6 +1,6 @@
 package hicc.toy.repository;
 
-import hicc.toy.domain.board.Article;
+import hicc.toy.domain.aritcle.Article;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

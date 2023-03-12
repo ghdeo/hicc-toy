@@ -1,4 +1,4 @@
-package hicc.toy.domain.board;
+package hicc.toy.domain.aritcle;
 
 public enum ArticleType {
     NOTICE,

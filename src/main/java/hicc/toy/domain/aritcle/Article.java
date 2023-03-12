@@ -1,4 +1,4 @@
-package hicc.toy.domain.board;
+package hicc.toy.domain.aritcle;
 
 import hicc.toy.domain.member.Member;
 import lombok.Builder;
