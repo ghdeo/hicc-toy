@@ -1,15 +1,11 @@
 package hicc.toy.repository;
 
 import hicc.toy.domain.board.Board;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface BoardRepository {
-    void create(Board board);
-    void update(Long boardId);
-    void delete(Long boardId);
-    Board findByMemberId(Long memberId);
-    List<Board> findByTitle(String keyword);
-    List<Board> findAll();
-
+@Repository
+public interface BoardRepository extends JpaRepository<Board, Long> {
 }
