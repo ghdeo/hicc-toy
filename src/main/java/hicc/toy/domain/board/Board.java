@@ -18,7 +18,9 @@ public class Board {
     @Column(name = "board_id")
     private Long id;
     private BoardType boardType;
+    @Column(length = 60, nullable = false)
     private String title;
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
     private Date writtenDate;
     @ManyToOne(fetch = LAZY)
