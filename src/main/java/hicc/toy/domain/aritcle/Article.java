@@ -30,10 +30,11 @@ public class Article {
     private Member member;
 
     @Builder
-    public Article(ArticleType articleType, String title, String content, Date writtenDate) {
+    public Article(ArticleType articleType, String title, String content, Date writtenDate, Member member) {
         this.articleType = articleType;
         this.title = title;
         this.content = content;
         this.writtenDate = writtenDate;
+        this.member = member;
     }
 }
