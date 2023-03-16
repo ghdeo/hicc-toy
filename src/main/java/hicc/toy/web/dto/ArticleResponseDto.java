@@ -5,7 +5,7 @@ import hicc.toy.domain.aritcle.ArticleType;
 import hicc.toy.domain.member.Member;
 import lombok.Getter;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter
 public class ArticleSaveResponseDto {
@@ -13,7 +13,7 @@ public class ArticleSaveResponseDto {
     private ArticleType articleType;
     private String title;
     private String content;
-    private Date writtenDate;
+    private LocalDateTime writtenDate;
     private Member member;
 
     public ArticleSaveResponseDto(Article article) {

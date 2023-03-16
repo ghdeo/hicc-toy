@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
@@ -15,7 +15,7 @@ public class ArticleSaveRequestDto {
     private ArticleType articleType;
     private String title;
     private String content;
-    Date writtenDate;
+    LocalDateTime writtenDate;
     private Member member;
 
     public ArticleSaveRequestDto(ArticleType articleType, String title, String content, Date writtenDate, Member member) {

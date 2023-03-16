@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import static javax.persistence.FetchType.LAZY;
 
@@ -24,13 +24,13 @@ public class Article {
     private String title;
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
-    private Date writtenDate;
+    private LocalDateTime writtenDate;
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
     @Builder
-    public Article(ArticleType articleType, String title, String content, Date writtenDate, Member member) {
+    public Article(ArticleType articleType, String title, String content, LocalDateTime writtenDate, Member member) {
         this.articleType = articleType;
         this.title = title;
         this.content = content;
