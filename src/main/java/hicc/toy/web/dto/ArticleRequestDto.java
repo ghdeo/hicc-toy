@@ -18,14 +18,6 @@ public class ArticleRequestDto {
     LocalDateTime writtenDate;
     private Member member;
 
-    public ArticleSaveRequestDto(ArticleType articleType, String title, String content, Date writtenDate, Member member) {
-        this.articleType = articleType;
-        this.title = title;
-        this.content = content;
-        this.writtenDate = writtenDate;
-        this.member = member;
-    }
-
     @Builder
     public Article toEntity() {
         return Article.builder()
