@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
-public class ArticleSaveRequestDto {
+public class ArticleRequestDto {
     private ArticleType articleType;
     private String title;
     private String content;
