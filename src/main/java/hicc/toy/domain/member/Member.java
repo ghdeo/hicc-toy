@@ -1,6 +1,8 @@
 package hicc.toy.domain.member;
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Column;
@@ -8,9 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+@NoArgsConstructor
 @Entity
 @Getter
-@Setter
 public class Member {
 
     @Id
@@ -19,11 +21,8 @@ public class Member {
     private Long id;
     private MemberRole memberRole;
 
-    public Member() {
-    }
-
-    public Member(Long id, MemberRole memberRole) {
-        this.id = id;
+    @Builder
+    public Member(MemberRole memberRole) {
         this.memberRole = memberRole;
     }
 }
