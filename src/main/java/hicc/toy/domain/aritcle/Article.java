@@ -37,4 +37,11 @@ public class Article {
         this.writtenDate = writtenDate;
         this.member = member;
     }
+
+    public void update(ArticleType articleType, String title, String content) {
+        this.articleType = articleType;
+        this.title = title;
+        this.content = content;
+        this.writtenDate = LocalDateTime.now();
+    }
 }
