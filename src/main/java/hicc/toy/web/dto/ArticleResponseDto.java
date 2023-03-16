@@ -8,7 +8,7 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
-public class ArticleSaveResponseDto {
+public class ArticleResponseDto {
     private Long id;
     private ArticleType articleType;
     private String title;
@@ -16,7 +16,7 @@ public class ArticleSaveResponseDto {
     private LocalDateTime writtenDate;
     private Member member;
 
-    public ArticleSaveResponseDto(Article article) {
+    public ArticleResponseDto(Article article) {
         this.id = article.getId();
         this.articleType = article.getArticleType();
         this.title = article.getTitle();
