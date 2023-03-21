@@ -1,5 +1,6 @@
 package hicc.toy.domain.schedule;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -17,4 +18,15 @@ public class Schedule {
     private Long id;
     private String title;
     private String content;
+
+    @Builder
+    public Schedule(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }
