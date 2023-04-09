@@ -23,6 +23,11 @@ public class ArticleApiController {
         return articleService.findAllByDeleteYn(deleteYn);
     }
 
+    @GetMapping("/article/{id}")
+    public ArticleResponseDto findById(@PathVariable final Long id) {
+        return articleService.findById(id);
+    }
+
     @PatchMapping("/article/{id}")
     public Long update(@PathVariable final Long id, @RequestBody ArticleRequestDto requestDto) {
         return articleService.update(id, requestDto);
