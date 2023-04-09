@@ -1,6 +1,8 @@
 package hicc.toy.services;
 
 import hicc.toy.domain.aritcle.Article;
+import hicc.toy.exception.CustomException;
+import hicc.toy.exception.ErrorCode;
 import hicc.toy.repository.ArticleRepository;
 import hicc.toy.web.dto.ArticleRequestDto;
 import hicc.toy.web.dto.ArticleResponseDto;
@@ -32,9 +34,10 @@ public class ArticleService {
 
     @Transactional
     public Long update(final Long id, final ArticleRequestDto requestDto) {
-        Optional<Article> article = articleRepository.findById(id); // 예외처리 코드 추가필요
-        article.get()
-                .update(requestDto.getArticleType(), requestDto.getTitle(), requestDto.getContent());
+        Article entity = articleRepository
+                .findById(id)
+                .orElseThrow(() -> new CustomException(ErrorCode.POSTS_NOT_FOUND));
+        entity.update(requestDto.getArticleType(), requestDto.getTitle(), requestDto.getContent());
         return id;
     }
 }
