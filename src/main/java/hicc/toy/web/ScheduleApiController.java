@@ -13,12 +13,12 @@ import java.util.List;
 public class ScheduleApiController {
     private final ScheduleService scheduleService;
 
-    @PostMapping("/schedule/save")
+    @PostMapping("/schedule")
     public Long save(@RequestBody ScheduleRequestDto requestDto) {
         return scheduleService.save(requestDto);
     }
 
-    @GetMapping("/schedules")
+    @GetMapping("/schedule")
     public List<ScheduleResponseDto> findAll() {
         return scheduleService.findAll();
     }
