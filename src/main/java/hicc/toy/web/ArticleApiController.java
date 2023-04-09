@@ -19,12 +19,17 @@ public class ArticleApiController {
     }
 
     @GetMapping("/article")
-    public List<ArticleResponseDto> findAll() {
-        return articleService.findAll();
+    public List<ArticleResponseDto> findAll(@RequestParam final char deleteYn) {
+        return articleService.findAllByDeleteYn(deleteYn);
     }
 
     @PatchMapping("/article/{id}")
     public Long save(@PathVariable final Long id, @RequestBody ArticleRequestDto requestDto) {
         return articleService.update(id, requestDto);
+    }
+
+    @DeleteMapping("/article/{id}")
+    public Long delete(@PathVariable final Long id) {
+        return articleService.delete(id);
     }
 }
