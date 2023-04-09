@@ -31,6 +31,21 @@ public class ArticleService {
         return list.stream().map(ArticleResponseDto::new).collect(Collectors.toList());
     }
 
+    /*
+     * 게시글 리스트 조회 - (삭제 여부 기준)
+     * */
+    public List<ArticleResponseDto> findAllByDeleteYn(final char deleteYn) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "id", "createdDate");
+        List<Article> list = articleRepository.findAllByDeleteYn(deleteYn, sort);
+        return list.stream().map(ArticleResponseDto::new).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public ArticleResponseDto findById(final Long id) {
+        Article entity = articleRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.POSTS_NOT_FOUND));
+        return new ArticleResponseDto(entity);
+    }
+
     @Transactional
     public Long update(final Long id, final ArticleRequestDto requestDto) {
         Article entity = articleRepository
