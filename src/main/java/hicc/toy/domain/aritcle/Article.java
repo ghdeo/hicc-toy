@@ -25,16 +25,18 @@ public class Article {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
     private LocalDateTime writtenDate;
+    private char deleteYn; // 삭제 여부
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
     @Builder
-    public Article(ArticleType articleType, String title, String content, LocalDateTime writtenDate, Member member) {
+    public Article(ArticleType articleType, String title, String content, LocalDateTime writtenDate, char deleteYn, Member member) {
         this.articleType = articleType;
         this.title = title;
         this.content = content;
         this.writtenDate = writtenDate;
+        this.deleteYn = deleteYn;
         this.member = member;
     }
 
@@ -43,5 +45,9 @@ public class Article {
         this.title = title;
         this.content = content;
         this.writtenDate = LocalDateTime.now();
+    }
+
+    public void delete() {
+        this.deleteYn = 'Y';
     }
 }
