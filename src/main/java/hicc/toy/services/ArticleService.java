@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,6 +37,13 @@ public class ArticleService {
                 .findById(id)
                 .orElseThrow(() -> new CustomException(ErrorCode.POSTS_NOT_FOUND));
         entity.update(requestDto.getArticleType(), requestDto.getTitle(), requestDto.getContent());
+        return id;
+    }
+
+    @Transactional
+    public Long delete(final Long id) {
+        Article entity = articleRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.POSTS_NOT_FOUND));
+        entity.delete();
         return id;
     }
 }
