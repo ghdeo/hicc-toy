@@ -13,12 +13,12 @@ import java.util.List;
 public class ArticleApiController {
     private final ArticleService articleService;
 
-    @PostMapping("/article/save")
+    @PostMapping("/article/")
     public Long save(@RequestBody ArticleRequestDto requestDto) {
         return articleService.save(requestDto);
     }
 
-    @GetMapping("/articles")
+    @GetMapping("/article")
     public List<ArticleResponseDto> findAll() {
         return articleService.findAll();
     }
