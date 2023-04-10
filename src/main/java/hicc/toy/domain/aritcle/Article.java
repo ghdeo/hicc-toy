@@ -1,5 +1,6 @@
 package hicc.toy.domain.aritcle;
 
+import hicc.toy.domain.comment.Comment;
 import hicc.toy.domain.member.Member;
 import lombok.Builder;
 import lombok.Getter;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static javax.persistence.FetchType.LAZY;
 
@@ -26,6 +28,8 @@ public class Article {
     private String content;
     private LocalDateTime writtenDate;
     private char deleteYn; // 삭제 여부
+    @OneToMany(mappedBy = "article")
+    private List<Comment> comments;
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
