@@ -29,5 +29,14 @@ public class CommentService {
         entity.update(requestDto.getComment());
         return entity.getId();
     }
+
+    @Transactional
+    public Long delete(Long id) {
+        Comment entity = commentRepository
+                .findById(id)
+                .orElseThrow(() -> new CustomException(ErrorCode.COMMENT_NOT_FOUND));
+        commentRepository.delete(entity);
+        return id;
+    }
 }
 
