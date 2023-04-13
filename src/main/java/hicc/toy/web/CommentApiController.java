@@ -22,4 +22,10 @@ public class CommentApiController {
         commentService.update(commentId, requestDto);
         return commentId;
     }
+
+    @DeleteMapping("/article/{articleId}/comments{commentId}")
+    public Long delete(@PathVariable final Long articleId, @PathVariable final Long commentId) {
+        commentService.delete(commentId);
+        return commentId;
+    }
 }
