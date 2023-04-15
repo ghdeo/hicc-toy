@@ -1,9 +1,13 @@
 package hicc.toy.web;
 
+import hicc.toy.domain.aritcle.ArticleType;
 import hicc.toy.services.ArticleService;
 import hicc.toy.web.dto.ArticleRequestDto;
 import hicc.toy.web.dto.ArticleResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,8 +23,13 @@ public class ArticleApiController {
     }
 
     @GetMapping("/article")
-    public List<ArticleResponseDto> findAll(@RequestParam final char deleteYn) {
-        return articleService.findAllByDeleteYn(deleteYn);
+    public Page<ArticleResponseDto> getArticlesByArticleTypeAndDeleteYn(
+            @RequestParam("articleType") ArticleType articleType,
+            @RequestParam("deleteYn") char deleteYn,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return articleService.findByArticleTypeAndDeleteYn(articleType, deleteYn, pageable);
     }
 
     @GetMapping("/article/{id}")
