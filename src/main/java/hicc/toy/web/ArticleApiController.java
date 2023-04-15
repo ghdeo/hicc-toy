@@ -37,6 +37,17 @@ public class ArticleApiController {
         return articleService.findById(id);
     }
 
+    @GetMapping("/article/search")
+    public Page<ArticleResponseDto> searchArticles(
+            @RequestParam(value = "title") String title,
+            @RequestParam(value = "articleType") ArticleType articleType,
+            @RequestParam(value = "deleteYn", defaultValue = "N") char deleteYn,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "15") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return articleService.searchArticles(title, articleType, deleteYn, pageable);
+    }
+
     @PatchMapping("/article/{id}")
     public Long update(@PathVariable final Long id, @RequestBody ArticleRequestDto requestDto) {
         return articleService.update(id, requestDto);
