@@ -17,4 +17,10 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
      * */
     @Query("SELECT a FROM Article a WHERE a.articleType = :articleType AND a.deleteYn = :deleteYn")
     Page<Article> findByArticleTypeAndDeleteYn(ArticleType articleType, char deleteYn, Pageable pageable);
+
+    /*
+     * 게시글 검색 - (게시글 종류, 제목 기준)
+     * */
+    Page<Article> findByTitleContainingAndArticleTypeAndDeleteYn(String title, ArticleType articleType, char deleteYn, Pageable pageable);
+
 }
