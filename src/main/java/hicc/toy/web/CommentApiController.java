@@ -31,7 +31,7 @@ public class CommentApiController {
         return commentId;
     }
 
-    @DeleteMapping("/article/{articleId}/comments{commentId}")
+    @DeleteMapping("/article/{articleId}/comments/{commentId}")
     public Long delete(@PathVariable final Long articleId, @PathVariable final Long commentId) {
         commentService.delete(commentId);
         return commentId;
