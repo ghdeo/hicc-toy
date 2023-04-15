@@ -13,7 +13,7 @@ import java.util.List;
 public class ArticleApiController {
     private final ArticleService articleService;
 
-    @PostMapping("/article/")
+    @PostMapping("/article")
     public Long save(@RequestBody ArticleRequestDto requestDto) {
         return articleService.save(requestDto);
     }
