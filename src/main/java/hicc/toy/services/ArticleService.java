@@ -54,6 +54,16 @@ public class ArticleService {
     }
 
     @Transactional
+    public Page<ArticleResponseDto> searchArticles(String title, ArticleType articleType, char deleteYn, Pageable pageable) {
+        Page<Article> page = articleRepository.findByTitleContainingAndArticleTypeAndDeleteYn(title, articleType, deleteYn, pageable);
+        List<ArticleResponseDto> articles = page.getContent()
+                .stream()
+                .map(ArticleResponseDto::new)
+                .collect(Collectors.toList());
+        return new PageImpl<>(articles, pageable, page.getTotalElements());
+    }
+
+    @Transactional
     public ArticleResponseDto findById(final Long id) {
         Article entity = articleRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.POSTS_NOT_FOUND));
         return new ArticleResponseDto(entity);
