@@ -1,12 +1,16 @@
 package hicc.toy.services;
 
 import hicc.toy.domain.aritcle.Article;
+import hicc.toy.domain.aritcle.ArticleType;
 import hicc.toy.exception.CustomException;
 import hicc.toy.exception.ErrorCode;
 import hicc.toy.repository.ArticleRepository;
 import hicc.toy.web.dto.ArticleRequestDto;
 import hicc.toy.web.dto.ArticleResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,12 +36,17 @@ public class ArticleService {
     }
 
     /*
-     * 게시글 리스트 조회 - (삭제 여부 기준)
+     * 게시글 리스트 조회 - (게시글 종류, 삭제 여부기준)
      * */
-    public List<ArticleResponseDto> findAllByDeleteYn(final char deleteYn) {
-        Sort sort = Sort.by(Sort.Direction.DESC, "id", "createdDate");
-        List<Article> list = articleRepository.findAllByDeleteYn(deleteYn, sort);
-        return list.stream().map(ArticleResponseDto::new).collect(Collectors.toList());
+    @Transactional
+    public Page<ArticleResponseDto> findByArticleTypeAndDeleteYn(ArticleType articleType, char deleteYn, Pageable pageable) {
+        Page<Article> page = articleRepository.findByArticleTypeAndDeleteYn(articleType, deleteYn, pageable);
+        List<ArticleResponseDto> articles = page
+                .getContent()
+                .stream()
+                .map(ArticleResponseDto::new)
+                .collect(Collectors.toList());
+        return new PageImpl<>(articles, pageable, page.getTotalElements());
     }
 
     @Transactional
