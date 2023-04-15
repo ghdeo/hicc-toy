@@ -25,14 +25,18 @@ public class ArticleService {
 
     @Transactional
     public Long save(final ArticleRequestDto requestDto) {
-        return articleRepository.save(requestDto.toEntity()).getId();
+        return articleRepository
+                .save(requestDto.toEntity())
+                .getId();
     }
 
     @Transactional
     public List<ArticleResponseDto> findAll() {
         Sort sort = Sort.by(Sort.Direction.DESC, "id", "writtenDate");
         List<Article> list = articleRepository.findAll(sort);
-        return list.stream().map(ArticleResponseDto::new).collect(Collectors.toList());
+        return list.stream()
+                .map(ArticleResponseDto::new)
+                .collect(Collectors.toList());
     }
 
     /*
