@@ -27,7 +27,7 @@ public class ArticleApiController {
             @RequestParam("articleType") ArticleType articleType,
             @RequestParam("deleteYn") char deleteYn,
             @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "size", defaultValue = "10") int size) {
+            @RequestParam(value = "size", defaultValue = "15") int size) {
         Pageable pageable = PageRequest.of(page, size);
         return articleService.findByArticleTypeAndDeleteYn(articleType, deleteYn, pageable);
     }
