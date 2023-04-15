@@ -1,17 +1,20 @@
 package hicc.toy.repository;
 
 import hicc.toy.domain.aritcle.Article;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import hicc.toy.domain.aritcle.ArticleType;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     /*
-     * 게시글 리스트 조회 - (삭제 여부 기준)
+     * 게시글 리스트 조회 - (게시글 종류, 삭제 여부 기준)
      * */
-    List<Article> findAllByDeleteYn(final char deleteYn, final Sort sort);
+    @Query("SELECT a FROM Article a WHERE a.articleType = :articleType AND a.deleteYn = :deleteYn")
+    Page<Article> findByArticleTypeAndDeleteYn(ArticleType articleType, char deleteYn, Pageable pageable);
 }
