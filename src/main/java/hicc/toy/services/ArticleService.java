@@ -30,15 +30,6 @@ public class ArticleService {
                 .getId();
     }
 
-    @Transactional
-    public List<ArticleResponseDto> findAll() {
-        Sort sort = Sort.by(Sort.Direction.DESC, "id", "writtenDate");
-        List<Article> list = articleRepository.findAll(sort);
-        return list.stream()
-                .map(ArticleResponseDto::new)
-                .collect(Collectors.toList());
-    }
-
     /*
      * 게시글 리스트 조회 - (게시글 종류, 삭제 여부기준)
      * */
