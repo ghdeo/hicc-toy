@@ -34,7 +34,7 @@ public class ArticleService {
      * 게시글 리스트 조회 - (게시글 종류, 삭제 여부기준)
      * */
     @Transactional
-    public Page<ArticleResponseDto> findByArticleTypeAndDeleteYn(ArticleType articleType, char deleteYn, Pageable pageable) {
+    public Page<ArticleResponseDto> findByArticleTypeAndDeleteYn(ArticleType articleType, boolean deleteYn, Pageable pageable) {
         Page<Article> page = articleRepository.findByArticleTypeAndDeleteYn(articleType, deleteYn, pageable);
         List<ArticleResponseDto> articles = page
                 .getContent()
@@ -45,7 +45,7 @@ public class ArticleService {
     }
 
     @Transactional
-    public Page<ArticleResponseDto> searchArticles(String title, ArticleType articleType, char deleteYn, Pageable pageable) {
+    public Page<ArticleResponseDto> searchArticles(String title, ArticleType articleType, boolean deleteYn, Pageable pageable) {
         Page<Article> page = articleRepository.findByTitleContainingAndArticleTypeAndDeleteYn(title, articleType, deleteYn, pageable);
         List<ArticleResponseDto> articles = page.getContent()
                 .stream()

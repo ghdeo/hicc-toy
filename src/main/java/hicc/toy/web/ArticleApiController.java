@@ -25,7 +25,7 @@ public class ArticleApiController {
     @GetMapping("/article")
     public Page<ArticleResponseDto> getArticlesByArticleTypeAndDeleteYn(
             @RequestParam("articleType") ArticleType articleType,
-            @RequestParam("deleteYn") char deleteYn,
+            @RequestParam("deleteYn") boolean deleteYn,
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "15") int size) {
         Pageable pageable = PageRequest.of(page, size);
@@ -41,7 +41,7 @@ public class ArticleApiController {
     public Page<ArticleResponseDto> searchArticles(
             @RequestParam(value = "title") String title,
             @RequestParam(value = "articleType") ArticleType articleType,
-            @RequestParam(value = "deleteYn", defaultValue = "N") char deleteYn,
+            @RequestParam(value = "deleteYn", defaultValue = "N") boolean deleteYn,
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "15") int size) {
         Pageable pageable = PageRequest.of(page, size);

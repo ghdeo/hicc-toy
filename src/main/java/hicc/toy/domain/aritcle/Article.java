@@ -27,7 +27,8 @@ public class Article {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
     private LocalDateTime writtenDate;
-    private char deleteYn; // 삭제 여부
+    @Column
+    private boolean deleteYn;
     @OneToMany(mappedBy = "article")
     private List<Comment> comments;
     @ManyToOne(fetch = LAZY)
@@ -35,7 +36,7 @@ public class Article {
     private Member member;
 
     @Builder
-    public Article(ArticleType articleType, String title, String content, LocalDateTime writtenDate, char deleteYn, Member member) {
+    public Article(ArticleType articleType, String title, String content, LocalDateTime writtenDate,boolean deleteYn, Member member) {
         this.articleType = articleType;
         this.title = title;
         this.content = content;
@@ -52,6 +53,6 @@ public class Article {
     }
 
     public void delete() {
-        this.deleteYn = 'Y';
+        this.deleteYn = true;
     }
 }
