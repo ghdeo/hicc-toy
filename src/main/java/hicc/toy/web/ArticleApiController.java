@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class ArticleApiController {
     private final ArticleService articleService;
 
     @PostMapping("/article")
+    @ResponseStatus(value = HttpStatus.CREATED)
     public Long save(@RequestBody ArticleRequestDto requestDto) {
         return articleService.save(requestDto);
     }

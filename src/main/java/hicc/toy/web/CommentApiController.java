@@ -4,6 +4,7 @@ import hicc.toy.services.CommentService;
 import hicc.toy.web.dto.CommentRequestDto;
 import hicc.toy.web.dto.CommentResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +15,7 @@ public class CommentApiController {
     private final CommentService commentService;
 
     @PostMapping("/article/{id}/comments")
+    @ResponseStatus(value = HttpStatus.CREATED)
     public Long save(@PathVariable Long id, @RequestBody CommentRequestDto requestDto) {
         return commentService.save(requestDto);
     }
