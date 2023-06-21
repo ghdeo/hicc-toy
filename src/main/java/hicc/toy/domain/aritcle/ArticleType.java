@@ -1,6 +1,6 @@
-package hicc.toy.domain.board;
+package hicc.toy.domain.aritcle;
 
-public enum BoardType {
+public enum ArticleType {
     NOTICE,
     FREE,
     PHOTO,
