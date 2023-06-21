@@ -6,16 +6,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@NoArgsConstructor
 @Entity
-@Getter
-public class Umbrella {
-
-    @Id
-    @GeneratedValue
-    private Long id;
-    private RentalStatus rentalStatus;
-    @OneToOne
-    @JoinColumn(name = "member_id")
-    private Member member;
+public class Umbrella extends Item{
 }
