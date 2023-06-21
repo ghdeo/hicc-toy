@@ -25,7 +25,7 @@ public class CommentService {
         return commentRepository.save(requestDto.toEntity()).getId();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<CommentResponseDto> findByArticleId(Long articleId) {
         List<Comment> comments = commentRepository.findByArticleId(articleId).orElseThrow(() -> new CustomException(ErrorCode.COMMENT_NOT_FOUND));
         return comments.stream()

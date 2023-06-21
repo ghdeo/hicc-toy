@@ -33,7 +33,7 @@ public class ArticleService {
     /*
      * 게시글 리스트 조회 - (게시글 종류, 삭제 여부기준)
      * */
-    @Transactional
+    @Transactional(readOnly = true)
     public Page<ArticleResponseDto> findByArticleTypeAndDeleteYn(ArticleType articleType, boolean deleteYn, Pageable pageable) {
         Page<Article> page = articleRepository.findByArticleTypeAndDeleteYn(articleType, deleteYn, pageable);
         List<ArticleResponseDto> articles = page
@@ -44,7 +44,7 @@ public class ArticleService {
         return new PageImpl<>(articles, pageable, page.getTotalElements());
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Page<ArticleResponseDto> searchArticles(String title, ArticleType articleType, boolean deleteYn, Pageable pageable) {
         Page<Article> page = articleRepository.findByTitleContainingAndArticleTypeAndDeleteYn(title, articleType, deleteYn, pageable);
         List<ArticleResponseDto> articles = page.getContent()
@@ -54,7 +54,7 @@ public class ArticleService {
         return new PageImpl<>(articles, pageable, page.getTotalElements());
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public ArticleResponseDto findById(final Long id) {
         Article entity = articleRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.POSTS_NOT_FOUND));
         return new ArticleResponseDto(entity);

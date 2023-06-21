@@ -23,7 +23,7 @@ public class ScheduleService {
         return scheduleRepository.save(requestDto.toEntity()).getId();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<ScheduleResponseDto> findAll() {
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         List<Schedule> list = scheduleRepository.findAll(sort);
