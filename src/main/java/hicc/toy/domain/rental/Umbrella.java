@@ -7,5 +7,14 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-public class Umbrella extends Item{
+@Getter
+@NoArgsConstructor
+public class Umbrella {
+    @Id
+    @GeneratedValue
+    private Long id;
+    private RentalStatus rentalStatus;
+    @OneToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
 }
