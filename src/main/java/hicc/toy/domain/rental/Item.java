@@ -13,10 +13,11 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Locker {
+public class Item {
     @Id
     @GeneratedValue
     private Long id;
+    private ItemType itemType;
     private RentalStatus rentalStatus;
     @OneToOne
     @JoinColumn(name = "member_id")
