@@ -35,7 +35,7 @@ public class ArticleService {
      * */
     @Transactional(readOnly = true)
     public Page<ArticleResponseDto> findByArticleTypeAndDeleteYn(ArticleType articleType, boolean deleteYn, Pageable pageable) {
-        Page<Article> page = articleRepository.findByArticleTypeAndDeleteYn(articleType, deleteYn, pageable);
+        Page<Article> page = articleRepository.findByArticleTypeAndIsDeleted(articleType, deleteYn, pageable);
         List<ArticleResponseDto> articles = page
                 .getContent()
                 .stream()
@@ -46,7 +46,7 @@ public class ArticleService {
 
     @Transactional(readOnly = true)
     public Page<ArticleResponseDto> searchArticles(String title, ArticleType articleType, boolean deleteYn, Pageable pageable) {
-        Page<Article> page = articleRepository.findByTitleContainingAndArticleTypeAndDeleteYn(title, articleType, deleteYn, pageable);
+        Page<Article> page = articleRepository.findByTitleContainingAndArticleTypeAndIsDeleted(title, articleType, deleteYn, pageable);
         List<ArticleResponseDto> articles = page.getContent()
                 .stream()
                 .map(ArticleResponseDto::new)

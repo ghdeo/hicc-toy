@@ -37,7 +37,7 @@ class ArticleRepositoryTest {
                 , "What a Beautiful Day"
                 , "content"
                 , LocalDateTime.now()
-                , 'N'
+                , false
                 , members.get(0)
         );
     }
@@ -66,13 +66,13 @@ class ArticleRepositoryTest {
         Article save = articleRepository.save(article);
 
         ArticleType articleType = ArticleType.FREE;
-        char deleteYn = 'N';
+        boolean isDeleted = false;
         Pageable pageable = PageRequest.of(0,10);
 
         //when
-        Page<Article> result = articleRepository.findByArticleTypeAndDeleteYn(
+        Page<Article> result = articleRepository.findByArticleTypeAndIsDeleted(
                 articleType
-                , deleteYn
+                , isDeleted
                 , pageable
         );
 
@@ -88,15 +88,15 @@ class ArticleRepositoryTest {
             Article article = createArticle();
             Article save = articleRepository.save(article);
             ArticleType articleType = ArticleType.FREE;
-            char deleteYn = 'N';
+            boolean isDeleted = false;
             Pageable pageable = PageRequest.of(0,10);
 
             //when
             String keyWord = "Beautiful";
-            Page<Article> result = articleRepository.findByTitleContainingAndArticleTypeAndDeleteYn(
+            Page<Article> result = articleRepository.findByTitleContainingAndArticleTypeAndIsDeleted(
                     keyWord
                     , articleType
-                    , deleteYn
+                    , isDeleted
                     , pageable
             );
 
