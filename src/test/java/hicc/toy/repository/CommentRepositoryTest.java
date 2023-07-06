@@ -6,6 +6,7 @@ import hicc.toy.domain.comment.Comment;
 import hicc.toy.domain.member.Member;
 import hicc.toy.domain.member.MemberRole;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,6 +25,13 @@ class CommentRepositoryTest {
     ArticleRepository articleRepository;
     @Autowired
     CommentRepository commentRepository;
+
+    @AfterEach
+    void afterEach() {
+        commentRepository.deleteAll();
+        articleRepository.deleteAll();
+        memberRepository.deleteAll();
+    }
 
     private Article createArticle() {
         Member member = new Member(MemberRole.GENERAL);
