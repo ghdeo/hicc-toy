@@ -4,12 +4,15 @@ import hicc.toy.domain.member.Member;
 import hicc.toy.domain.rental.Item;
 import hicc.toy.domain.rental.ItemType;
 import hicc.toy.domain.rental.RentalStatus;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class ItemRequestDto {
     private ItemType itemType;
     private RentalStatus rentalStatus;
