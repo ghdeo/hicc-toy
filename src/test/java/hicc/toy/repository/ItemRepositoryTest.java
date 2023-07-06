@@ -5,7 +5,9 @@ import hicc.toy.domain.member.MemberRole;
 import hicc.toy.domain.rental.Item;
 import hicc.toy.domain.rental.ItemType;
 import hicc.toy.domain.rental.RentalStatus;
+import org.aspectj.lang.annotation.After;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,6 +21,11 @@ class ItemRepositoryTest {
     ItemRepository itemRepository;
     @Autowired
     MemberRepository memberRepository;
+    @AfterEach
+    void afterEach() {
+        itemRepository.deleteAll();
+        memberRepository.deleteAll();
+    }
     @Test
     void save() throws Exception {
         //given
