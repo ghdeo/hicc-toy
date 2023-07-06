@@ -5,6 +5,7 @@ import hicc.toy.domain.member.Member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -15,6 +16,7 @@ import static javax.persistence.FetchType.LAZY;
 @NoArgsConstructor
 @Entity
 @Getter
+@DynamicInsert
 public class Article {
 
     @Id
@@ -28,7 +30,7 @@ public class Article {
     private String content;
     private LocalDateTime writtenDate;
     @Column
-    private boolean deleteYn;
+    private boolean isDeleted;
     @OneToMany(mappedBy = "article")
     private List<Comment> comments;
     @ManyToOne(fetch = LAZY)
@@ -36,12 +38,12 @@ public class Article {
     private Member member;
 
     @Builder
-    public Article(ArticleType articleType, String title, String content, LocalDateTime writtenDate,boolean deleteYn, Member member) {
+    public Article(ArticleType articleType, String title, String content, LocalDateTime writtenDate,boolean isDeleted, Member member) {
         this.articleType = articleType;
         this.title = title;
         this.content = content;
         this.writtenDate = writtenDate;
-        this.deleteYn = deleteYn;
+        this.isDeleted = isDeleted;
         this.member = member;
     }
 
@@ -53,6 +55,6 @@ public class Article {
     }
 
     public void delete() {
-        this.deleteYn = true;
+        this.isDeleted = true;
     }
 }
