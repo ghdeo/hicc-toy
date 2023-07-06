@@ -15,12 +15,12 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     /*
      * 게시글 리스트 조회 - (게시글 종류, 삭제 여부 기준)
      * */
-    @Query("SELECT a FROM Article a WHERE a.articleType = :articleType AND a.isDeleted = :isDeleted")
-    Page<Article> findByArticleTypeAndDeleteYn(ArticleType articleType, boolean isDeleted, Pageable pageable);
+    @Query("SELECT a FROM Article a WHERE a.articleType = :articleType AND a.deleteYn = :deleteYn")
+    Page<Article> findByArticleTypeAndDeleteYn(ArticleType articleType, boolean deleteYn, Pageable pageable);
 
     /*
      * 게시글 검색 - (게시글 종류, 제목 기준)
      * */
-    Page<Article> findByTitleContainingAndArticleTypeAndDeleteYn(String title, ArticleType articleType, boolean isDeleted, Pageable pageable);
+    Page<Article> findByTitleContainingAndArticleTypeAndDeleteYn(String title, ArticleType articleType, boolean deleteYn, Pageable pageable);
 
 }

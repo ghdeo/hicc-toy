@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,11 +27,11 @@ public class ArticleApiController {
     @GetMapping("/article")
     public Page<ArticleResponseDto> getArticlesByArticleTypeAndDeleteYn(
             @RequestParam("articleType") ArticleType articleType,
-            @RequestParam("isDeleted") boolean isDeleted,
+            @RequestParam("deleteYn") boolean deleteYn,
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "15") int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return articleService.findByArticleTypeAndDeleteYn(articleType, isDeleted, pageable);
+        return articleService.findByArticleTypeAndDeleteYn(articleType, deleteYn, pageable);
     }
 
     @GetMapping("/article/{id}")
@@ -42,11 +43,11 @@ public class ArticleApiController {
     public Page<ArticleResponseDto> searchArticles(
             @RequestParam(value = "title") String title,
             @RequestParam(value = "articleType") ArticleType articleType,
-            @RequestParam(value = "isDeleted", defaultValue = "N") boolean isDeleted,
+            @RequestParam(value = "deleteYn", defaultValue = "N") boolean deleteYn,
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "15") int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return articleService.searchArticles(title, articleType, isDeleted, pageable);
+        return articleService.searchArticles(title, articleType, deleteYn, pageable);
     }
 
     @PatchMapping("/article/{id}")
