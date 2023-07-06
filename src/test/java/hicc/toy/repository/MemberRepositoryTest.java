@@ -2,6 +2,8 @@ package hicc.toy.repository;
 
 import hicc.toy.domain.member.Member;
 import hicc.toy.domain.member.MemberRole;
+import org.aspectj.lang.annotation.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +18,8 @@ class MemberRepositoryTest {
     @Autowired
     MemberRepository memberRepository;
 
-    @BeforeEach
-    void clear() {
+    @AfterEach
+    void afterEach() {
         memberRepository.deleteAll();
     }
 
@@ -29,10 +31,10 @@ class MemberRepositoryTest {
                 .build();
 
         //when
-        memberRepository.save(member);
+        Member save = memberRepository.save(member);
 
         //then
-        Member foundMember = memberRepository.findById(1L).get();
+        Member foundMember = memberRepository.findById(save.getId()).get();
         assertThat(foundMember.getId()).isEqualTo(member.getId());
         assertThat(foundMember.getMemberRole()).isEqualTo(member.getMemberRole());
     }
