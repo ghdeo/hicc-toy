@@ -18,15 +18,18 @@ public class Schedule {
     private Long id;
     private String title;
     private String content;
+    private ScheduleType scheduleType;
 
     @Builder
-    public Schedule(String title, String content) {
+    public Schedule(String title, String content, ScheduleType scheduleType) {
         this.title = title;
         this.content = content;
+        this.scheduleType = scheduleType;
     }
 
-    public void update(String title, String content) {
+    public void update(String title, String content, ScheduleType scheduleType) {
         this.title = title;
         this.content = content;
+        this.scheduleType = scheduleType;
     }
 }

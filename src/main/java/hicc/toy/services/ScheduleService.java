@@ -34,7 +34,7 @@ public class ScheduleService {
     public Long update(final Long id, final ScheduleRequestDto requestDto) {
         Optional<Schedule> schedule = scheduleRepository.findById(id);
         schedule.get()
-                .update(requestDto.getTitle(), requestDto.getContent());
+                .update(requestDto.getTitle(), requestDto.getContent(), requestDto.getScheduleType());
         return id;
     }
 }
