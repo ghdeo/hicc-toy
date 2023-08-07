@@ -9,6 +9,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -36,5 +38,19 @@ public class ScheduleService {
         schedule.get()
                 .update(requestDto.getTitle(), requestDto.getContent(), requestDto.getScheduleType(), requestDto.getDate());
         return id;
+    }
+
+    @Transactional(readOnly = true)
+    public List<ScheduleResponseDto> findByDateBetween(final int year, final int month) {
+        YearMonth yearMonth = YearMonth.of(year, month);
+        LocalDateTime startOfMonth = yearMonth.atDay(1).atStartOfDay();
+        LocalDateTime endOfMonth = yearMonth.atEndOfMonth().atTime(23, 59, 59);
+
+        List<Schedule> schedules = scheduleRepository.findByDateBetween(startOfMonth, endOfMonth);
+
+        return schedules
+                .stream()
+                .map(ScheduleResponseDto::new)
+                .collect(Collectors.toList());
     }
 }

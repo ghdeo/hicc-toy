@@ -29,4 +29,12 @@ public class ScheduleApiController {
     public Long save(@PathVariable final Long id, @RequestBody ScheduleRequestDto requestDto) {
         return scheduleService.update(id, requestDto);
     }
+
+    @GetMapping("/schedule")
+    public List<ScheduleResponseDto> findByYearAndMonth(
+            @RequestParam(value = "year") int year,
+            @RequestParam(value = "month") int month
+    ) {
+        return scheduleService.findByDateBetween(year, month);
+    }
 }
