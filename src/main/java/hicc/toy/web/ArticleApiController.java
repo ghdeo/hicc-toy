@@ -8,8 +8,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @RestController
@@ -47,6 +51,25 @@ public class ArticleApiController {
             @RequestParam(value = "size", defaultValue = "15") int size) {
         Pageable pageable = PageRequest.of(page, size);
         return articleService.searchArticles(title, articleType, isDeleted, pageable);
+    }
+
+    @GetMapping("/article/searchByDate")
+    public Page<ArticleResponseDto> searchArticlesByDateRange(
+            @RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime startDate,
+            @RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime endDate,
+            @RequestParam(value = "isDeleted", defaultValue = "N") boolean isDeleted,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "15") int size) {
+        if (startDate == null) {
+            startDate = LocalDateTime.now().withDayOfYear(1);
+        }
+
+        if (endDate == null) {
+            endDate = LocalDateTime.now();
+        }
+
+        Pageable pageable = PageRequest.of(page, size);
+        return articleService.findArticlesByDateRange(startDate, endDate, isDeleted, pageable);
     }
 
     @PatchMapping("/article/{id}")

@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
+
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 
@@ -22,5 +24,10 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
      * 게시글 검색 - (게시글 종류, 제목 기준)
      * */
     Page<Article> findByTitleContainingAndArticleTypeAndIsDeleted(String title, ArticleType articleType, boolean isDeleted, Pageable pageable);
+
+    /*
+     * 특정 기간 동안 작성된 게시글 검색
+     * */
+    Page<Article> findByWrittenDateBetweenAndIsDeleted(LocalDateTime startDate, LocalDateTime endDate, boolean isDeleted, Pageable pageable);
 
 }

@@ -15,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,6 +48,16 @@ public class ArticleService {
     @Transactional(readOnly = true)
     public Page<ArticleResponseDto> searchArticles(String title, ArticleType articleType, boolean deleteYn, Pageable pageable) {
         Page<Article> page = articleRepository.findByTitleContainingAndArticleTypeAndIsDeleted(title, articleType, deleteYn, pageable);
+        List<ArticleResponseDto> articles = page.getContent()
+                .stream()
+                .map(ArticleResponseDto::new)
+                .collect(Collectors.toList());
+        return new PageImpl<>(articles, pageable, page.getTotalElements());
+    }
+
+    @Transactional(readOnly = true)
+    public Page<ArticleResponseDto> findArticlesByDateRange(LocalDateTime startDate, LocalDateTime endDate, boolean isDeleted, Pageable pageable) {
+        Page<Article> page = articleRepository.findByWrittenDateBetweenAndIsDeleted(startDate, endDate, isDeleted, pageable);
         List<ArticleResponseDto> articles = page.getContent()
                 .stream()
                 .map(ArticleResponseDto::new)
