@@ -72,6 +72,28 @@ public class ArticleApiController {
         return articleService.findArticlesByDateRange(startDate, endDate, isDeleted, pageable);
     }
 
+    @GetMapping("/article/searchByMemberId")
+    public Page<ArticleResponseDto> searchByMemberId(
+            @RequestParam(value = "memberId") Long id,
+            @RequestParam(value = "isDeleted", defaultValue = "N") boolean isDeleted,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "15") int size
+    ) {
+        PageRequest pageable = PageRequest.of(page, size);
+        return articleService.findByMemberId(id, isDeleted, pageable);
+    }
+
+    @GetMapping("/article/searchByMemberNickname")
+    public Page<ArticleResponseDto> searchByMemberNickname(
+            @RequestParam(value = "nickname") String nickname,
+            @RequestParam(value = "isDeleted", defaultValue = "N") boolean isDeleted,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "15") int size
+    ) {
+        PageRequest pageable = PageRequest.of(page, size);
+        return articleService.findByMemberNickname(nickname, isDeleted, pageable);
+    }
+
     @PatchMapping("/article/{id}")
     public Long update(@PathVariable final Long id, @RequestBody ArticleRequestDto requestDto) {
         return articleService.update(id, requestDto);

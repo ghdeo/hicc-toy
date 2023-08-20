@@ -71,6 +71,25 @@ public class ArticleService {
         return new ArticleResponseDto(entity);
     }
 
+    @Transactional(readOnly = true)
+    public Page<ArticleResponseDto> findByMemberId(final Long id, boolean isDeleted, Pageable pageable) {
+        Page<Article> page = articleRepository.findByMemberIdAndIsDeleted(id, isDeleted, pageable);
+        List<ArticleResponseDto> articles = page.getContent()
+                .stream()
+                .map(ArticleResponseDto::new)
+                .collect(Collectors.toList());
+        return new PageImpl<>(articles, pageable, page.getTotalElements());
+    }
+
+    @Transactional(readOnly = true)
+    public Page<ArticleResponseDto> findByMemberNickname(String nickname, boolean isDeleted, Pageable pageable) {
+        Page<Article> page = articleRepository.findByMemberNicknameAndIsDeleted(nickname, isDeleted, pageable);
+        List<ArticleResponseDto> articles = page.getContent()
+                .stream()
+                .map(ArticleResponseDto::new)
+                .collect(Collectors.toList());
+        return new PageImpl<>(articles, pageable, page.getTotalElements());
+    }
     @Transactional
     public Long update(final Long id, final ArticleRequestDto requestDto) {
         Article entity = articleRepository

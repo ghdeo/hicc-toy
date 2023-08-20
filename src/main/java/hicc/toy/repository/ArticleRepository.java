@@ -30,4 +30,14 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
      * */
     Page<Article> findByWrittenDateBetweenAndIsDeleted(LocalDateTime startDate, LocalDateTime endDate, boolean isDeleted, Pageable pageable);
 
+    /*
+     * 작성자 ID 기준 게시글 검색
+     * */
+    Page<Article> findByMemberIdAndIsDeleted(Long memberId, boolean isDeleted, Pageable pageable);
+
+    /*
+     * 작성자 Nickname 기준 게시글 검색
+     * */
+    Page<Article> findByMemberNicknameAndIsDeleted(String nickname, boolean isDelete, Pageable pageable);
+
 }
